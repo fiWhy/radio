@@ -1,15 +1,45 @@
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/utilities';
 
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
+@import './mixins';
+@import './fonts';
+@import './variables';
+@import './theme';
 
-@import "./mixins";
-@import "./fonts";
-@import "./variables";
-@import "./theme";
+@import '../../node_modules/bootstrap/scss/grid';
 
-
+@mixin common-list($removePadding: true) {
+  list-style: none;
+  margin: 0;
+  @if $removePadding {
+    padding: 0;
+  }
+}
 
 body {
-  font-family: "Roboto", "Lato";
+  font-family: 'Roboto', 'Lato';
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+.player {
+  &__details {
+    &__info {
+      ul {
+        @include common-list(true);
+      }
+    }
+    &__playlist {
+      ul {
+        @include common-list(false);
+      }
+    }
+  }
 }

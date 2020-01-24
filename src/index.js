@@ -1,5 +1,10 @@
-import App from './components/App/App';
+import App from './components/App';
+import Player from './components/Player';
 
-const app = App.create();
+import tmp from './player.html';
 
-document.querySelector('#app').append(app);
+const tmpWrapper = document.createElement('div');
+tmpWrapper.innerHTML = tmp;
+const playerTmp = tmpWrapper.querySelector('#player');
+
+document.querySelector('#app').appendChild(playerTmp.content);
