@@ -2,3 +2,5 @@ node_modules
 .cache
 .vscode
 dist
+
+assets/video/*

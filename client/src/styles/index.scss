@@ -43,3 +43,14 @@ body {
     }
   }
 }
+
+.video__player {
+  &__theatre {
+    position: relative;
+    width: 100%;
+    height: calc((9 / 16) * 100vw);
+    max-height: calc(100vh - 169px);
+    min-height: 480px;
+    background: #000;
+  }
+}
