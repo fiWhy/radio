@@ -1,40 +1,23 @@
 import tmp from './player-video.html';
-import { BehaviorSubject } from 'rxjs';
-import { VideoPool } from './contracts/VideoPool';
 
-const videoPool = new VideoPool();
+import videoPoolExample from './example-video-tag';
+import mediaSourceExample from './example-media-source';
+import mediaSourceExampleBySegment from './example-media-source-by-segment';
+import { fromEvent } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 const tmpWrapper = document.createElement('div');
 tmpWrapper.innerHTML = tmp;
 const playerTmp = tmpWrapper.querySelector('#video-player');
 
 document.querySelector('#app').appendChild(playerTmp.content);
-const videoBlock = document.querySelector('.video__player__theatre__content'),
-  videoButtons = document.querySelector('.video__player__theatre__buttons');
+const videoWrapper = document.querySelector('.video__player__theatre__content'),
+  videoButtonsWrapper = document.querySelector(
+    '.video__player__theatre__buttons'
+  );
 
 window.onload = () => {
-  videoPool.list$.subscribe(list => {
-    videoButtons.innerHTML = '';
-    list.forEach(qualityObject => {
-      const btn = document.createElement('button');
-      btn.textContent = qualityObject.quality;
-      btn.addEventListener('click', () => {
-        videoPool.playTag(qualityObject.quality);
-      });
-      videoButtons.appendChild(btn);
-    });
-  });
-
-  videoPool.videoTag$.subscribe(video => {
-    videoBlock.innerHTML = '';
-    videoBlock.appendChild(video);
-    video.play();
-    video.volume = 0;
-    // seek to 10 seconds
-    video.currentTime = 10;
-  });
-
-  videoPool.update().subscribe(() => {
-    videoPool.playTag('360');
-  });
+  // mediaSourceExample(videoWrapper, videoButtonsWrapper);
+  mediaSourceExampleBySegment(videoWrapper, videoButtonsWrapper);
+  // videoPoolExample(videoWrapper, videoButtonsWrapper);
 };

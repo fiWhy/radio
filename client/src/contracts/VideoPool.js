@@ -3,27 +3,19 @@ import { fromFetch } from 'rxjs/fetch';
 import { Subject, of } from 'rxjs';
 import { pickVideoQualityFromList } from '../lib/file';
 import { filter, tap, switchMap, map } from 'rxjs/operators';
+import { Player } from './Player';
 
-export class VideoPool {
+export class VideoPool extends Player {
   static serverVideoUrl = `${serverUrl}/media/video`;
-  __forbiddenProps = ['src'];
   __currentList = null;
-  __currentVideoTag = null;
   __currentVideoTags = null;
   __currentQuality = null;
-  __currentPlayerProps = {
-    width: '100%',
-    height: '100%',
-    volume: 1
-  };
   list$ = new Subject();
-  playerProps$ = new Subject();
   preparedVideoTags$ = this.list$.pipe(
     filter(list => list.length),
     switchMap(() => this.generateVideoTags())
   );
 
-  videoTag$ = new Subject();
 
   get currentQuality() {
     return this.__currentQuality;
@@ -35,20 +27,6 @@ export class VideoPool {
       tap(data => this.list$.next((this.__currentList = data))),
       switchMap(() => this.generateVideoTags())
     );
-  }
-
-  updatePlayerProps(props) {
-    this.__currentPlayerProps = Object.assign(this.__currentPlayerProps, props);
-    this.playerProps$.next(this.__currentPlayerProps);
-
-    Object.keys(this.__currentPlayerProps)
-      .filter(propKey => !this.__forbiddenProps.find(prop => prop === propKey))
-      .forEach(propKey => {
-        this.__currentVideoTag.setAttribute(
-          propKey,
-          this.__currentPlayerProps[propKey]
-        );
-      });
   }
 
   getStream(fileName, quality, format) {
