@@ -1,6 +1,7 @@
 import { Subject } from 'rxjs';
 
 export class Player {
+  __options = {};
   __videoElement = null;
   __forbiddenProps = ['src'];
   __currentPlayerProps = {
@@ -35,5 +36,11 @@ export class Player {
       });
       element.appendChild(btn);
     });
+  }
+
+  log(info) {
+    if (this.__options.log) {
+      console.log(info);
+    }
   }
 }

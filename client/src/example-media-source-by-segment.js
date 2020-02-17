@@ -9,6 +9,7 @@ export default (videoWrapper, buttonsWrapper) => {
   videoWrapper.appendChild(videoElement);
 
   const source = new Media(videoElement, {
+    log: true,
     url: formatUrlToServer('/media/video/test-any/webm'),
     format: 'webm',
     codec: codecs['webm'],

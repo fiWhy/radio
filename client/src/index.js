@@ -3,8 +3,6 @@ import tmp from './player-video.html';
 import videoPoolExample from './example-video-tag';
 import mediaSourceExample from './example-media-source';
 import mediaSourceExampleBySegment from './example-media-source-by-segment';
-import { fromEvent } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
 
 const tmpWrapper = document.createElement('div');
 tmpWrapper.innerHTML = tmp;

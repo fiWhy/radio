@@ -44,6 +44,7 @@ export class Media extends Player {
     this.__videoElement.src = URL.createObjectURL(this.__mediaSource);
     this.__mimeCodec = options.codec;
     this.__initListeners();
+    this.loadMedia();
   }
 
   get video() {
@@ -62,9 +63,9 @@ export class Media extends Player {
     const sourceOpenSubscription = fromEvent(this.__mediaSource, 'sourceopen')
       .pipe(first())
       .subscribe(() => {
+        this.log('[Stream]. Source opened');
         this.createMediaSource();
         this.handleSourceOpened();
-        this.loadMedia(this.url);
         sourceOpenSubscription.unsubscribe();
       });
 
@@ -74,6 +75,7 @@ export class Media extends Player {
         first()
       )
       .subscribe(() => {
+        this.log('[Stream]. Video Element Can Play');
         this.__segmentDuration =
           this.__videoElement.duration / this.__options.totalSegments;
       });
@@ -124,7 +126,7 @@ export class Media extends Player {
     if (segmented) {
       return this.getStat(url).then(({ fileSize }) => {
         this.__bySegments = segmented;
-        this.__segmentLength = Math.floor(fileSize / totalSegments);
+        this.__segmentLength = Math.round(fileSize / totalSegments);
         this.__fileSize = fileSize;
         return this.__load(this.currentSegmentStart, this.currentSegmentEnd);
       });
@@ -139,6 +141,7 @@ export class Media extends Player {
    * @param {number} end bytes end
    */
   __load(start, end) {
+    this.log(`[Stream]. Load segment ${start}-${end}`);
     const { url } = this.__options;
     return fetch(url, {
       headers: {
@@ -162,7 +165,10 @@ export class Media extends Player {
   }
 
   handleSourceOpened() {
-    this.__sourceBuffer.onerror = err => console.log(err);
+    this.__sourceBuffer.onerror = err => {
+      this.log('[Stream]. UpdateError');
+      console.error(err);
+    };
   }
 
   handleVideoTimeUpdate() {
@@ -183,6 +189,7 @@ export class Media extends Player {
       this.videoCanPlaySubscription.unsubscribe();
       this.videoTimeUpdateSubscription.unsubscribe();
       this.clearQueue();
+      this.log('[Stream]. Finished');
     }
   }
 
