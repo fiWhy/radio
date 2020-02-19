@@ -1,29 +1,8 @@
-import { VideoPool } from './contracts/VideoPool';
-const videoPool = new VideoPool();
+import { formatUrlToServer } from './constants';
 
-export default (videoWrapper, videoButtonsWrapper) => {
-  videoPool.list$.subscribe(list => {
-    videoButtonsWrapper.innerHTML = '';
-    const controls = list.map(qualityObject => ({
-      text: qualityObject.quality,
-      callback: () => {
-        videoPool.playTag(qualityObject.quality);
-      }
-    }));
-
-    videoPool.appendControls(controls);
-  });
-
-  videoPool.videoTag$.subscribe(video => {
-    videoWrapper.innerHTML = '';
-    videoWrapper.appendChild(video);
-    video.play();
-    video.volume = 0;
-    // seek to 10 seconds
-    video.currentTime = 10;
-  });
-
-  videoPool.update().subscribe(() => {
-    videoPool.playTag('360');
-  });
+export default videoWrapper => {
+  const videoElement = document.createElement('video');
+  videoWrapper.appendChild(videoElement);
+  videoElement.controls = true;
+  videoElement.src = formatUrlToServer('/media/video/video-360-fragmented/mp4');
 };

@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 
 export class Player {
   __options = {};
-  __videoElement = null;
+  __sourceElement = null;
   __forbiddenProps = ['src'];
   __currentPlayerProps = {
     width: '100%',
@@ -20,11 +20,17 @@ export class Player {
     Object.keys(this.__currentPlayerProps)
       .filter(propKey => !this.__forbiddenProps.find(prop => prop === propKey))
       .forEach(propKey => {
-        this.__videoElement.setAttribute(
+        this.__sourceElement.setAttribute(
           propKey,
           this.__currentPlayerProps[propKey]
         );
       });
+  }
+
+  updateSourceBufferProps(props = {}) {
+    Object.keys(props).forEach(propKey => {
+      this.__sourceBuffer[propKey] = props[propKey];
+    });
   }
 
   appendControls(element, controls) {
@@ -32,7 +38,7 @@ export class Player {
       const btn = document.createElement('button');
       btn.textContent = text;
       btn.addEventListener('click', () => {
-        callback();
+        callback(btn);
       });
       element.appendChild(btn);
     });
@@ -40,7 +46,7 @@ export class Player {
 
   log(info) {
     if (this.__options.log) {
-      console.log(info);
+      console.log(`[Stream]. ${info}`);
     }
   }
 }

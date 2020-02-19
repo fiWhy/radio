@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 const { videoFolder, audioFolder } = require('../constants');
+const musicMetadata = require('music-metadata');
 
 const paths = {
   audio: audioFolder,
@@ -44,9 +45,19 @@ const statFile = type => (req, res) => {
   const path = `${paths[type]}/${segment}.${format}`;
   const stat = fs.statSync(path);
   const fileSize = stat.size;
-  res.setHeader('Content-Length', fileSize);
-  res.setHeader('Content-Type', `${type}/${format}`);
-  res.send();
+  if (type === 'audio') {
+    musicMetadata.parseFile(path).then(metadata => {
+      res.setHeader('Access-Control-Expose-Headers', 'X-Duration');
+      res.setHeader('X-Duration', metadata.format.duration);
+      res.setHeader('Content-Length', fileSize);
+      res.setHeader('Content-Type', `${type}/${format}`);
+      res.send();
+    });
+  } else {
+    res.setHeader('Content-Length', fileSize);
+    res.setHeader('Content-Type', `${type}/${format}`);
+    res.send();
+  }
 };
 
 router.get('/video', (req, res) => {
