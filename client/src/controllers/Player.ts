@@ -35,7 +35,6 @@ export abstract class Player extends PlayerView {
     this.options.totalSegments =
       options.totalSegments < 0 ? 0 : options.totalSegments;
     this.queue = [];
-    this.playerProps$.next(this.options.playerOptions);
   }
 
   protected initListeners() {

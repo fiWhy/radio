@@ -12,8 +12,8 @@ const elementWrapper = document.querySelector(
 
 // videoPoolExample(elementWrapper);
 // mediaSourceExample(elementWrapper);
-// mediaSourceExampleBySegment(elementWrapper);
-audioExample(elementWrapper);
+mediaSourceExampleBySegment(elementWrapper);
+// audioExample(elementWrapper);
 // videoCanvas(elementWrapper);
 // dashExample(elementWrapper);
 // audioVisualizationExample(document.body);

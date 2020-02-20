@@ -9,11 +9,11 @@ export abstract class PlayerView {
     volume: 1
   };
 
-  abstract sourceBuffer: SourceBuffer;
-  abstract sourceElement: HTMLMediaElement;
-
   protected playerProps$ = new Subject<PlayerOptions>();
   protected sourceBufferProps$ = new Subject<PlayerOptions>();
+
+  abstract sourceBuffer: SourceBuffer;
+  abstract sourceElement: HTMLMediaElement;
 
   constructor() {
     this.playerProps$.subscribe(props => this.updatePlayerProps(props));
@@ -24,8 +24,6 @@ export abstract class PlayerView {
 
   private updatePlayerProps(props: PlayerOptions) {
     this.currentPlayerProps = Object.assign(this.currentPlayerProps, props);
-    this.playerProps$.next(this.currentPlayerProps);
-
     Object.keys(this.currentPlayerProps)
       .filter(propKey => !this.forbiddenProps.find(prop => prop === propKey))
       .forEach(propKey => {
