@@ -1,8 +1,8 @@
-import { Media } from './contracts/Media';
+import { Media } from './controllers/Media';
 import { formatUrlToServer } from './constants';
 import visualize from './lib/visualizer';
 
-export default videoWrapper => {
+export default audioWrapper => {
   document.body.classList.add('visualizer');
   document.querySelector('#app').remove();
   const canvas = document.createElement('canvas');
@@ -15,8 +15,8 @@ export default videoWrapper => {
 
   const sourceElement = document.createElement('audio');
   sourceElement.controls = false;
-  videoWrapper.appendChild(canvas);
-  videoWrapper.appendChild(callToAction);
+  audioWrapper.appendChild(canvas);
+  audioWrapper.appendChild(callToAction);
 
   const source = new Media(sourceElement, {
     log: true,

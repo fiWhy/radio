@@ -4,12 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="src/styles/index.scss" />
     <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.5.9/shaka-player.compiled.js"></script> -->
   </head>
 
   <body class="light-theme">
-    <div id="app"></div>
+    <div id="app">
+      <div class="video__player player__container container-fluid px-0">
+        <div class="video__player__wrapper row">
+          <div class="video__player__theatre row">
+            <div class="video__player__theatre__content col-12"></div>
+            <div
+              class="video__player__theatre__buttons col-12 text-center"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <script src="src/index.js"></script>
+    <script src="src/index.ts"></script>
   </body>
 </html>

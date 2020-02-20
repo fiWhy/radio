@@ -1,8 +1,7 @@
-import { Media } from './contracts/Media';
+import { Media } from './controllers/Media';
 import { codecs, formatUrlToServer } from './constants';
-import { filter, catchError, buffer } from 'rxjs/operators';
 
-export default (videoWrapper, buttonsWrapper) => {
+export default videoWrapper => {
   const videoElement = document.createElement('video');
   videoElement.controls = true;
   videoWrapper.appendChild(videoElement);
@@ -14,7 +13,7 @@ export default (videoWrapper, buttonsWrapper) => {
   });
 
   source.add({
-    url: formatUrlToServer('/media/video/frag_bunny/mp4'),
+    url: formatUrlToServer('/media/video/video-360-fragmented/mp4'),
     format: 'mp4',
     codec: codecs['mp4']
   });

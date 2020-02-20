@@ -1,4 +1,4 @@
-import { Media } from './contracts/Media';
+import { Media } from './controllers/Media';
 import { formatUrlToServer, codecs } from './constants';
 import { processor } from './lib/stream';
 
@@ -41,7 +41,7 @@ export default videoWrapper => {
       callback: btn => {
         if (videoElement.paused) {
           btn.textContent = 'Pause';
-          videoElement.pla();
+          videoElement.play();
         } else {
           btn.textContent = 'Play';
           videoElement.pause();

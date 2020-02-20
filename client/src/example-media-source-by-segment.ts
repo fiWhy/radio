@@ -1,4 +1,4 @@
-import { Media } from './contracts/Media';
+import { Media } from './controllers/Media';
 import { formatUrlToServer, codecs } from './constants';
 
 export default videoWrapper => {

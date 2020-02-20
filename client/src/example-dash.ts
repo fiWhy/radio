@@ -1,3 +1,7 @@
+/**
+ * Dashjs's been imported to index.html from CDN https://cdn.dashjs.org/latest/dash.all.min.js
+ */
+
 export default videoWrapper => {
   const videoElement = document.createElement('video');
   videoElement.controls = true;

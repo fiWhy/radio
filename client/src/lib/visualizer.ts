@@ -1,3 +1,6 @@
+/**
+ * Code's been taken and adapted from https://codepen.io/nelsonr/pen/WamzJb
+ */
 export default (canvas, audio) => {
   let ctx = canvas.getContext('2d');
 
