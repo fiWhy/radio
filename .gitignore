@@ -3,4 +3,7 @@ node_modules
 .vscode
 dist
 
+assets/audio/*
 assets/video/*
+toolchain/*
+!toolchain/.gitkeep

@@ -1,8 +1,8 @@
 import { Media } from './controllers/Media';
 import { formatUrlToServer } from './constants';
-import visualize from './lib/visualizer';
+import visualize from '../lib/visualizer';
 
-export default audioWrapper => {
+export default (audioWrapper) => {
   document.body.classList.add('visualizer');
   document.querySelector('#app').remove();
   const canvas = document.createElement('canvas');
@@ -21,7 +21,7 @@ export default audioWrapper => {
   const source = new Media(sourceElement, {
     log: true,
     segmented: true,
-    totalSegments: 10
+    totalSegments: 10,
   });
 
   visualize(canvas, sourceElement);
@@ -29,6 +29,6 @@ export default audioWrapper => {
   source.add({
     url: formatUrlToServer('/media/audio/audio/mp3'),
     format: 'mp3',
-    codec: 'audio/mpeg'
+    codec: 'audio/mpeg',
   });
 };

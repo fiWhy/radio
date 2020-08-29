@@ -1,6 +1,6 @@
 import { Media } from './controllers/Media';
 import { formatUrlToServer, codecs } from './constants';
-import { processor } from './lib/stream';
+import { processor } from '../lib/stream';
 
 export default videoWrapper => {
   const theatreContent = document.querySelector(

@@ -18,4 +18,7 @@ export interface MediaOptions {
   sourceBufferOptions?: SourceBufferOptions;
   playerOptions?: PlayerOptions;
   log?: boolean;
+  sourceBuffer?: {
+    mode: string;
+  };
 }

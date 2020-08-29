@@ -4,21 +4,22 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --open",
+    "start:simple": "parcel ./src/simple/index.html --open",
+    "start:reactive": "parcel ./src/reactive/index.html --open",
     "build": "parcel build index.html"
   },
   "dependencies": {
     "bootstrap": "4.4.1",
     "material-design-icons": "^3.0.1",
-    "rxjs": "^6.5.4"
+    "parcel-bundler": "^1.12.4",
+    "rxjs": "^6.6.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "parcel-bundler": "^1.6.1",
-    "sass": "^1.25.0",
-    "typescript": "^3.7.5"
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "sass": "^1.26.10",
+    "typescript": "^3.9.7"
   },
   "keywords": []
 }
